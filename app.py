@@ -1,22 +1,16 @@
 from flask import Flask
-from recipe_scrapers import scrape_me
-import json
-
+from datetime import datetime
 app = Flask(__name__)
 
 @app.route('/')
-def hello_world():
-    scraper = scrape_me('https://www.allrecipes.com/recipe/158968/spinach-and-feta-turkey-burgers/')
-    Title = scraper.title()
-    Time = scraper.total_time()
-    Quantity = scraper.yields()
-    Ingredients = scraper.ingredients()
-    ret = json.dumps(scraper.schema.data)
-    return (ret)
-    #hELLP
+def homepage():
+    the_time = datetime.now().strftime("%A, %d %b %Y %l:%M %p")
 
-class Recipe():
-    def __init__(self, Title, Time, Quantity, ):
-        self._Title=Title
-        self._Time = str(Time)
-        self._Quantity = str(Quantity)
+    return """
+    <h1>Hello heroku</h1>
+    <p>It is currently {time}.</p>
+    <img src="http://loremflickr.com/600/400" />
+    """.format(time=the_time)
+
+if __name__ == '__main__':
+    app.run(debug=True, use_reloader=True)
