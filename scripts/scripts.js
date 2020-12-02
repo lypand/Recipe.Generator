@@ -1,12 +1,17 @@
 function loadDoc() {
-    fetch('http://pokeapi.co/api/v2/pokemon/25/')
+   fetch('http://127.0.0.1:5000/data',{
+    //	mode: 'no-cors'
+    })
   .then(response => response.json())
-  .then(data =>   
+  	
+
+  	.then(data =>   
     
     {
-        document.getElementById("h1").innerHTML = data.species.name; 
-        document.getElementById("img1").src = data.sprites.front_shiny; 
         console.log(data); 
+        document.getElementById("h1").innerHTML = data.name; 
+        document.getElementById("img1").src = data.image.url; 
+        
     });
 
 
@@ -14,7 +19,13 @@ function loadDoc() {
 
 
 
-
+/*var request = new XMLHttpRequest();
+  	request.open('GET','http://127.0.0.1:5000/data',{
+  		mode:'no-cors'
+  	});
+	request.responseType = 'json';
+	console.log(request.send());
+	        console.log(request.response); */
 
 
 
