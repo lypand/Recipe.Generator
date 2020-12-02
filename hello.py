@@ -16,4 +16,15 @@ def hello_world():
     Ingredients = scraper.ingredients()
     ret = json.dumps(scraper.schema.data)
     return (ret)
+<<<<<<< HEAD
     
+=======
+    #hELLP
+
+class Recipe():
+    def __init__(self, Title, Time, Quantity, ):
+        self._Title=Title
+        self._Time = str(Time)
+        self._Quantity = str(Quantity)
+    
+>>>>>>> aa44af91c9869f59d65927c912f42795bba5d562
