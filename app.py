@@ -23,7 +23,7 @@ def hello_world():
     while(ret=='{}'):
         ret =GetRandomRecipe()
         i+=1
-    return (str(i) + ret)
+    return (ret)
 
 @app.route('/input/')
 def Testing():
