@@ -3,6 +3,8 @@ from recipe_scrapers import scrape_me
 import json
 from flask_cors import CORS
 import random
+import data.mongo_setup as mongo_setup
+import services.data_service as mongoService
 
 app = Flask(__name__)
 CORS(app)
@@ -23,6 +25,13 @@ def hello_world():
     while(ret=='{}'):
         ret =GetRandomRecipe()
         i+=1
+    
+    #put information into Mongo
+    retJson = json.loads(ret)
+    mongo_setup.global_init()
+
+    mongoService.create_recipe(retJson)
+
     return (ret)
 
 @app.route('/input/')
