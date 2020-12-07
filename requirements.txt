@@ -9,7 +9,6 @@ recipe-scrapers
 flask_cors
 ujson
 dnspython
-gridfs
 bson
 pymongo
 mongoengine
