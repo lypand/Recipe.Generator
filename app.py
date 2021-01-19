@@ -1,8 +1,9 @@
-from flask import Flask, request
+from flask import Flask, request, Response
 from recipe_scrapers import scrape_me
 import json
 from flask_cors import CORS
 import random
+import time
 
 app = Flask(__name__)
 CORS(app)
@@ -10,7 +11,8 @@ CORS(app)
 
 def GetRandomRecipe():
     WebURL = 'https://www.allrecipes.com/recipe/'
-    WebURL = WebURL + str(random.randint(100,19999))
+    ID = random.randint(100,19999)
+    WebURL = WebURL + str(ID)
     scraper = scrape_me(WebURL)
     return(json.dumps(scraper.schema.data))
 
@@ -18,15 +20,15 @@ def GetRandomRecipe():
 
 @app.route('/output')
 def hello_world():
-    i = 1
-    ret = GetRandomRecipe()
+    ret = '{}'
     while(ret=='{}'):
         ret =GetRandomRecipe()
-        i+=1
-    return (ret)
+    print(ret)
+    time.sleep(10)
+    return ('hello World')
 
 @app.route('/input/')
-def Testing():
+def BufferTesting():
     
     #Whenever url comes in as: localhost:5000/input/?name=INSERTNAME&size=INSERTSIZE
     #You can add more inputs as well, just seperate in url with '&'
