@@ -8,3 +8,6 @@ Werkzeug==0.15.6
 recipe-scrapers
 flask_cors
 ujson
+dnspython
+pymongo
+mongoengine
