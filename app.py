@@ -10,7 +10,6 @@ import services.data_service as mongoService
 app = Flask(__name__)
 CORS(app)
 
-
 def GetRandomRecipe():
     WebURL = 'https://www.allrecipes.com/recipe/'
     ID = random.randint(100,19999)
@@ -33,7 +32,6 @@ def read_recipe_by_category():
 def read_recipe_random():
     mongo_setup.global_init()
     return mongoService.read_recipe_random()
-
 
 @app.route('/populate')
 def populate():
@@ -80,8 +78,6 @@ def BufferTesting():
         size = 'No size Specified'
         
     return(name+size)
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
