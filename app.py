@@ -3,16 +3,12 @@ from recipe_scrapers import scrape_me
 import json
 from flask_cors import CORS
 import random
-<<<<<<< HEAD
 import time
-=======
 import data.mongo_setup as mongo_setup
 import services.data_service as mongoService
->>>>>>> c6b0fc54e21d27c42188ae5b7d08e6cd84e15d1a
 
 app = Flask(__name__)
 CORS(app)
-
 
 def GetRandomRecipe():
     WebURL = 'https://www.allrecipes.com/recipe/'
@@ -37,7 +33,6 @@ def read_recipe_random():
     mongo_setup.global_init()
     return mongoService.read_recipe_random()
 
-
 @app.route('/populate')
 def populate():
     mongo_setup.global_init()
@@ -46,8 +41,6 @@ def populate():
         if(ret!='{}'):
             retJson = json.loads(ret)
             mongoService.create_recipe(retJson)
-
-
     return (ret)
 
 @app.route('/create-recipe', methods = ['POST'])
@@ -62,22 +55,12 @@ def hello_world():
     ret = '{}'
     while(ret=='{}'):
         ret =GetRandomRecipe()
-<<<<<<< HEAD
-    print(ret)
-    time.sleep(10)
-    return ('hello World')
-=======
         i+=1
-    
     #put information into Mongo
     retJson = json.loads(ret)
     mongo_setup.global_init()
-
     mongoService.create_recipe(retJson)
-
-
     return (ret)
->>>>>>> c6b0fc54e21d27c42188ae5b7d08e6cd84e15d1a
 
 @app.route('/input/')
 def BufferTesting():
@@ -95,8 +78,6 @@ def BufferTesting():
         size = 'No size Specified'
         
     return(name+size)
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
