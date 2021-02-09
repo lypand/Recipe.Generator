@@ -10,27 +10,10 @@ def create_recipe(retJson) -> Recipe:
     recipe.imageUrl = retJson["image"]["url"]
     recipe.calories = retJson["nutrition"]["calories"]
     recipe.ingredients = retJson["recipeIngredient"]
-    recipe.instructions = extractInstructions(retJson["recipeInstructions"])
+    recipe.instructions = retJson["recipeInstructions"]
     recipe.categories = retJson["recipeCategory"]
     recipe.save()
     return recipe
-
-def extractInstructions(instructions):
-    extractedInstructions = []
-    for instruction in instructions:
-        extractedInstructions.append(instruction['text'])
-    return extractedInstructions
-
-def create_recipe_new(retJson) -> Recipe: 
-    recipe = Recipe()
-    recipe.name = retJson["name"]
-    recipe.imageUrl = retJson["imageUrl"]
-    recipe.calories = retJson["calories"]
-    recipe.ingredients = retJson["ingredients"]
-    recipe.instructions = retJson["instructions"]
-    recipe.save()
-    return recipe   
-
 
 def read_recipe_by_category(category: str) -> Recipe:
     recipe = Recipe.objects(categories= category).first()
