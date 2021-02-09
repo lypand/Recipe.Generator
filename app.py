@@ -49,12 +49,6 @@ def populate():
 
 
     return (ret)
-
-@app.route('/create-recipe', methods = ['POST'])
-def createRecipe():
-    mongo_setup.global_init()
-    ret = mongoService.create_recipe_new(json.loads(request.json["recipe"]))
-    return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
     
 
 @app.route('/output')
