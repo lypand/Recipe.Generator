@@ -1,21 +1,25 @@
 from flask import Flask, request, Response
-from recipe_scrapers import scrape_me
+from WebScraper import FasterScraper
 import json
 from flask_cors import CORS
 import random
 import time
-import data.mongo_setup as mongo_setup
-import services.data_service as mongoService
+#import data.mongo_setup as mongo_setup
+#import services.data_service as mongoService
 
 app = Flask(__name__)
 CORS(app)
 
 def GetRandomRecipe():
-    WebURL = 'https://www.allrecipes.com/recipe/'
-    ID = random.randint(100,19999)
-    WebURL = WebURL + str(ID)
-    scraper = scrape_me(WebURL)
-    return(json.dumps(scraper.schema.data))
+    WebURL = 'https://www.allrecipes.com/recipe/91836/ds-whole-wheat-challah/'
+    #ID = random.randint(100,19999)
+    #WebURL = WebURL + str(ID)
+    return(FasterScraper.ScrapeRecipe(WebURL))
+
+@app.route('/random2')
+def rando():
+    return GetRandomRecipe()
+
 
 @app.route('/read')
 def read_recipe_by_category():
