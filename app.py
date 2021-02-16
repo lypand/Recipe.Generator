@@ -4,8 +4,8 @@ import json
 from flask_cors import CORS
 import random
 import time
-#import data.mongo_setup as mongo_setup
-#import services.data_service as mongoService
+import data.mongo_setup as mongo_setup
+import services.data_service as mongoService
 
 app = Flask(__name__)
 CORS(app)
@@ -16,7 +16,7 @@ def GetRandomRecipe():
     #WebURL = WebURL + str(ID)
     return(FasterScraper.ScrapeRecipe(WebURL))
 
-@app.route('/random2')
+@app.route('/randomer')
 def rando():
     return GetRandomRecipe()
 
