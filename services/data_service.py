@@ -2,7 +2,7 @@ from data.recipes import Recipe
 from data.myrecipe import MyRecipe
 import mongoengine
 import json
-
+import uuid
 
 def create_recipe(retJson) -> Recipe: 
     recipe = Recipe()
@@ -42,19 +42,7 @@ def create_recipe_new(retJson) -> Recipe:
     recipe.ingredients = retJson["ingredients"]
     recipe.instructions = retJson["instructions"]
     recipe.save()
-    return recipe   
-
-
-def save_my_recipe(retJson, username) -> MyRecipe: 
-    recipe = MyRecipe()
-    recipe.username = username
-    recipe.name = retJson["name"]
-    recipe.imageUrl = retJson["imageUrl"]
-    recipe.calories = retJson["calories"]
-    recipe.ingredients = retJson["ingredients"]
-    recipe.instructions = retJson["instructions"]
-    recipe.save()
-    return recipe  
+    return recipe    
 
 def read_recipe_by_category(category: str) -> Recipe:
     recipe = Recipe.objects(categories= category).first()
@@ -70,8 +58,27 @@ def get_random_oids(collection, sample_size):
     pipeline = [{"$project": {'_id': 1}}, {"$sample": {"size": sample_size}}]
     return [s['_id'] for s in collection.aggregate(pipeline)]
 
+
+#My recipe 
 def read_my_recipes(username) -> MyRecipe: 
     recipe = MyRecipe.objects(username=username)
     return recipe.to_json()
 
+#My recipe 
+def delete_my_recipe(key) -> MyRecipe: 
+    recipe = MyRecipe()
+    recipe = MyRecipe.objects(key=key).delete()
+    return recipe
+
+def save_my_recipe(retJson, username) -> MyRecipe: 
+    recipe = MyRecipe()
+    recipe.username = username
+    recipe.name = retJson["name"]
+    recipe.imageUrl = retJson["imageUrl"]
+    recipe.calories = retJson["calories"]
+    recipe.ingredients = retJson["ingredients"]
+    recipe.instructions = retJson["instructions"]
+    recipe.key = uuid.uuid4().hex
+    recipe.save()
+    return recipe 
     

@@ -10,6 +10,7 @@ class MyRecipe(mongoengine.Document):
     ingredients = mongoengine.ListField()
     instructions = mongoengine.ListField()
     categories = mongoengine.ListField()
+    key = mongoengine.StringField()
     
     meta = {
         'db_alias': 'core',
