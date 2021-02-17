@@ -32,13 +32,6 @@ def read_recipe_by_category():
     mongo_setup.global_init()
     return mongoService.read_recipe_by_category(category)
 
-@app.route('/myrecipes/<username>', methods = ['GET'])
-def getMyRecipes(username):
-    mongo_setup.global_init()
-    return mongoService.read_my_recipes(username)
-
-
-
 @app.route('/random')
 def read_recipe_random():
     mongo_setup.global_init()
@@ -60,13 +53,27 @@ def createRecipe():
     ret = mongoService.create_recipe_new(json.loads(request.json["recipe"]))
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
+
+
+#My Recipe
 @app.route('/save-my-recipe', methods = ['POST'])
 def saveMyRecipe():
     mongo_setup.global_init()
     username = json.loads(request.json["username"])
     ret = mongoService.save_my_recipe(json.loads(request.json["recipe"]),username)
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
+@app.route('/myrecipes/<username>', methods = ['GET'])
+def getMyRecipes(username):
+    mongo_setup.global_init()
+    return mongoService.read_my_recipes(username)
    
+@app.route('/myrecipes/<key>', methods = ['Delete'])
+def deleteMyRecipe(key):
+    mongo_setup.global_init()
+    mongoService.delete_my_recipe(key)
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
 
 @app.route('/output')
 def hello_world():
